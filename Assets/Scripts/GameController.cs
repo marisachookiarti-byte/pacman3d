@@ -9,7 +9,7 @@ namespace Pacman
 {
     public class GameController : MonoBehaviour
     {
-        private static GameController _instance;
+        public static GameController Instance { get; }
 
         public int score = 0;
         public int maxCoin = 0;//-5
