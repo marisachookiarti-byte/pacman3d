@@ -7,6 +7,7 @@ namespace Pacman
     {
         public float speedMul = 5f;
         public UnityEvent<Collision> eatCoinEvent;
+        public UnityEvent hitEvent;
         public WASD walk;
 
         private void Start()
@@ -19,6 +20,9 @@ namespace Pacman
             if (collision.gameObject.CompareTag("coin"))
             {
                 eatCoinEvent.Invoke(collision);
+            }else if (collision.gameObject.CompareTag("enemy"))
+            {
+                hitEvent.Invoke();
             }
         }
     }
