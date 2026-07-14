@@ -1,15 +1,17 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
+using Random = UnityEngine.Random;
 
 namespace Pacman
 {
     public class GameController : MonoBehaviour
     {
-        public static GameController Instance { get; }
+        public static GameController Instance { get; private set; }
 
         public int score = 0;
         public int maxCoin = 0;//-5
@@ -25,6 +27,10 @@ namespace Pacman
 
         private int[] spawns = { -10, -2, 5, 11 };
 
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
