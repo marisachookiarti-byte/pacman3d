@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace
+
+namespace Pacman
 {
     public class GameController : MonoBehaviour
     {
