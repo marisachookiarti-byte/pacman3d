@@ -35,6 +35,7 @@ namespace Pacman
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            dialogueRunner.StartDialogue("Start");
             pacman.eatCoinEvent.AddListener(OnPacmanEatCoin);
             pacman.hitEvent.AddListener(OnEnemyHit);
             AdvanceLevel();
@@ -48,7 +49,7 @@ namespace Pacman
             {
                 Instantiate(coin, new Vector3(spawns[Random.Range(0,spawns.Length)], 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
-            Instantiate(enemy, new Vector3(spawns[Random.Range(0, spawns.Length)], 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
+            Instantiate(enemy, new Vector3(spawns[Random.Range(0, spawns.Length)], 0f, Random.Range(-12, 12)), pacman.transform.rotation);
         }
 
         public void Update()

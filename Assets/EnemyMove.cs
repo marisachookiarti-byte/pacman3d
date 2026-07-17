@@ -14,9 +14,16 @@ public class EnemyMove : MonoBehaviour
     }
     void Update()
     {
-        if (_player != null)
+        if (cat.isOnNavMesh)
         {
             cat.SetDestination(_player.transform.position);
+        }
+        else
+        {
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+            {
+                cat.Warp(hit.position);
+            }
         }
     }
 }
