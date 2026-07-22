@@ -4,6 +4,9 @@ public class Health : MonoBehaviour
 {
     public int health = 3;
 
+    public AudioSource sfxSource;
+    public AudioClip meowSound;
+
     void Update()
     {
         if (health <= 0)
@@ -16,6 +19,7 @@ public class Health : MonoBehaviour
         if (collision.gameObject.CompareTag("bullet"))
         {
             health--;
+            sfxSource.PlayOneShot(meowSound);
             Destroy(collision.gameObject);
         }
     }

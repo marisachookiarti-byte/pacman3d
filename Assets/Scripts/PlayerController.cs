@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace Pacman
 {
@@ -9,6 +11,8 @@ namespace Pacman
         public UnityEvent<Collision> eatCoinEvent;
         public UnityEvent hitEvent;
         public WASD walk;
+        public Shooting reload;
+        public TMP_Text bulletNum;
 
         private void Start()
         {
@@ -23,6 +27,11 @@ namespace Pacman
             }else if (collision.gameObject.CompareTag("enemy"))
             {
                 hitEvent.Invoke();
+            }else if (collision.gameObject.CompareTag("magazine"))
+            {
+                reload.ammo += 5;
+                Destroy(collision.gameObject);
+                bulletNum.text = ""+reload.ammo;
             }
         }
     }

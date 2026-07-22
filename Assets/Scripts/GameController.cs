@@ -19,6 +19,7 @@ namespace Pacman
         public GameObject coin;
         public GameObject pac;
         public GameObject enemy;
+        public GameObject magazine;
         public PacmanController pacman;
         public TMP_Text textMeshPro;
 
@@ -50,6 +51,7 @@ namespace Pacman
                 Instantiate(coin, new Vector3(spawns[Random.Range(0,spawns.Length)], 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
             Instantiate(enemy, new Vector3(spawns[Random.Range(0, spawns.Length)], 0f, Random.Range(-12, 12)), pacman.transform.rotation);
+            Instantiate(magazine, new Vector3(spawns[Random.Range(0, spawns.Length)], .5f, Random.Range(-12, 12)), pacman.transform.rotation);
         }
 
         public void Update()
