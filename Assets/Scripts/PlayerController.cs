@@ -16,18 +16,22 @@ namespace Pacman
 
         private void Start()
         {
-
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            Debug.Log($"OnCollisionEnter {collision.gameObject.name}");
+            if (collision.gameObject == null) return;
+            
             if (collision.gameObject.CompareTag("coin"))
             {
                 eatCoinEvent.Invoke(collision);
-            }else if (collision.gameObject.CompareTag("enemy"))
+            }
+            else if (collision.gameObject.CompareTag("enemy"))
             {
                 hitEvent.Invoke();
-            }else if (collision.gameObject.CompareTag("magazine"))
+            }
+            else if (collision.gameObject.CompareTag("magazine"))
             {
                 reload.ammo += 5;
                 Destroy(collision.gameObject);

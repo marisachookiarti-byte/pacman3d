@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Yarn.Unity;
 using Random = UnityEngine.Random;
 
@@ -21,7 +22,8 @@ namespace Pacman
         public GameObject enemy;
         public GameObject magazine;
         public PacmanController pacman;
-        public TMP_Text textMeshPro;
+        [FormerlySerializedAs("textMeshPro")] public TMP_Text scoreTMP;
+        public TMP_Text bulletTMP;
 
         public DialogueRunner dialogueRunner;
         public string[] node = { "A", "B", "C", "D", "E" };
@@ -68,7 +70,7 @@ namespace Pacman
         {
             score++;
             Destroy(collision.gameObject);
-            textMeshPro.text = score.ToString();
+            scoreTMP.text = score.ToString();
         }
         private void OnEnemyHit()
         {
