@@ -505,6 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   score: 0
   maxCoin: 0
+  maxCat: 1
   coin: {fileID: 2074378441015081345, guid: d6abdcf351d7c374b93348b5966d7585, type: 3}
   pac: {fileID: 759600168}
   enemy: {fileID: 536805091359932423, guid: c5193533240ea8b47a6afbc6fdf5a026, type: 3}
@@ -519,7 +520,11 @@ MonoBehaviour:
   - C
   - D
   - E
-  level: 0
+  currentLevel: lvl1
+  levels:
+  - lvl1
+  - lvl2
+  - lvl3
 --- !u!4 &258701571
 Transform:
   m_ObjectHideFlags: 0
