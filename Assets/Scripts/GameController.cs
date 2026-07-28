@@ -31,7 +31,9 @@ namespace Pacman
 
         //private int[] spawns = { -10, -2, 5, 11 };
 
-        public int level = 0;
+        public string currentLevel;
+
+        [SerializeField] private List<string> levels;
 
         private void Awake()
         {
@@ -49,28 +51,32 @@ namespace Pacman
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            dialogueRunner.StartDialogue("Start");
-            pacman.eatCoinEvent.AddListener(OnPacmanEatCoin);
-            pacman.hitEvent.AddListener(OnEnemyHit);
-            AdvanceLevel();
+            OnSceneLoaded(null);
         }
 
         void AdvanceLevel()
         {
-            if (level > 0)
-            {
-                SceneManager.LoadScene(level);
-                return;
-            }
-            if (level < 2)
-            {
-                level++;
-            }
-            else
-            {
-                level = 0;
-            }
+            var currentIndex = levels.FindIndex(l => string.CompareOrdinal(l, currentLevel) == 0);
+            int nextLevelIndex = currentIndex + 1;
+            if (levels.Count >= nextLevelIndex) nextLevelIndex = 0;
+            
+            var op = SceneManager.LoadSceneAsync(currentLevel);
+            op.completed += OnSceneLoaded;
+        }
+        
+        void ResetLevel()
+        {
+            var op = SceneManager.LoadSceneAsync(currentLevel);
+            op.completed += OnSceneLoaded;
+        }
+        
+        
 
+        void OnSceneLoaded(AsyncOperation op)
+        {
+            currentLevel = SceneManager.GetActiveScene().name;
+            
+            Debug.Log($"AdvanceLevel: finding references");
             pac = GameObject.FindWithTag("player");
             pacman = pac.GetComponent<PacmanController>();
             scoreTMP = GameObject.Find("score").GetComponent<TMP_Text>();
@@ -81,15 +87,21 @@ namespace Pacman
             maxCoin += 5;
             pac.transform.Translate(0, 0, 0);
             dialogueRunner.StartDialogue(node[Random.Range(0, node.Length)]);
+            
             for (int i = 0; i < maxCoin; i++)
             {
                 Instantiate(coin, new Vector3(Random.Range(-12, 12), 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
-            for (int i = 0; i < maxCat++; i++)
+            for (int i = 0; i < maxCat; i++)
             {
                 Instantiate(enemy, new Vector3(Random.Range(-12, 12), 0f, Random.Range(-12, 12)), pacman.transform.rotation);
                 Instantiate(magazine, new Vector3(Random.Range(-12, 12), .5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
+            
+            // Registering events
+            dialogueRunner.StartDialogue("Start");
+            pacman.eatCoinEvent.AddListener(OnPacmanEatCoin);
+            pacman.hitEvent.AddListener(OnEnemyHit);
         }
 
 
@@ -107,11 +119,7 @@ namespace Pacman
         
         private void OnEnemyHit()
         {
-            Reset();
-        }
-        public void Reset()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ResetLevel();
         }
     }
 

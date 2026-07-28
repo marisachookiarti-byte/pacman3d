@@ -1,10 +1,10 @@
 ﻿Bugs.
-1. Cats are still sideways.
-2. References are missing.
+1. Bullets pushes player character.
+2. Items and Coins are spawning into the wall.
 3. Problem moving files in Unity. Try running unity as admin. And if failing that, try google.
 
 Goal:
-1. Clean up shooting code.
-2. Adding sfx when cat got shot. (cat blinking white for 0.1 sec.)
-3. Do not give me heart attack.
-4. Make different levels have different walls arrangement and color. New levels have to be a new scene. Only game controlelr is allowed to be DoNotDestoryOnLoad. Look up -> Prefab Instantiate.
+1. move yarn out of GameController.
+2. Make cat glow and fly back when shot.
+3. Make multiple cats with different behavior and color/pattern.
+4. Add lasers on the map.
