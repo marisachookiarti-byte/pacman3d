@@ -60,6 +60,7 @@ namespace Pacman
             if (level > 0)
             {
                 SceneManager.LoadScene(level);
+                return;
             }
             if (level < 2)
             {
@@ -91,20 +92,19 @@ namespace Pacman
             }
         }
 
-        public void Update()
-        {
-            if (score >= maxCoin)
-            {
-                AdvanceLevel();
-            }
-        }
 
         private void OnPacmanEatCoin(Collision collision)
         {
             score++;
             Destroy(collision.gameObject);
             scoreTMP.text = score.ToString();
+            
+            if (score >= maxCoin)
+            {
+                AdvanceLevel();
+            }
         }
+        
         private void OnEnemyHit()
         {
             Reset();
