@@ -1,6 +1,8 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 namespace Pacman
@@ -11,16 +13,27 @@ namespace Pacman
         public UnityEvent<Collision> eatCoinEvent;
         public UnityEvent hitEvent;
         public WASD walk;
-        public Shooting reload;
+
+        public Shooting Shot;
+        public Camera cam;
         public TMP_Text bulletNum;
+        public int ammo = 100;
+        public Animator anim;
 
-        private void Start()
+        public void Update()
         {
+            if (Mouse.current.leftButton.wasPressedThisFrame && ammo > 0)
+            {
+                Console.Write("clicked");
+                Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+                Shot.Shoot(ray, anim);
+                ammo--;
+                bulletNum.text = "" + ammo;
+            }
         }
-
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log($"OnCollisionEnter {collision.gameObject.name}");
+            //Debug.Log($"OnCollisionEnter {collision.gameObject.name}");
             if (collision.gameObject == null) return;
             
             if (collision.gameObject.CompareTag("coin"))
@@ -33,9 +46,9 @@ namespace Pacman
             }
             else if (collision.gameObject.CompareTag("magazine"))
             {
-                reload.ammo += 5;
+                ammo += 5;
                 Destroy(collision.gameObject);
-                bulletNum.text = ""+reload.ammo;
+                bulletNum.text = ""+ammo;
             }
         }
     }

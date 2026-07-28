@@ -82,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1688796160857414, guid: 71d42f13891e48c4487496fd15802eda, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6942883317340476078}
+    - targetCorrespondingSourceObject: {fileID: 1688796160857414, guid: 71d42f13891e48c4487496fd15802eda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1283611838057640380}
   m_SourcePrefab: {fileID: 100100000, guid: 71d42f13891e48c4487496fd15802eda, type: 3}
 --- !u!1 &5344841984734346608 stripped
 GameObject:
@@ -121,3 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4653534bdd0a29241b96f8130a48b25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Magazine
+--- !u!114 &1283611838057640380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5344841984734346608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c75bc9c6b0232a45b0497c5177597c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::freeCoin
+  coin: {fileID: 5344841984734346608}

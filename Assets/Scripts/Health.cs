@@ -7,12 +7,13 @@ public class Health : MonoBehaviour
     public AudioSource sfxSource;
     public AudioClip meowSound;
 
+    void Awake()
+    {
+        sfxSource.mute = false;
+    }
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,6 +22,24 @@ public class Health : MonoBehaviour
             health--;
             sfxSource.PlayOneShot(meowSound);
             Destroy(collision.gameObject);
+            checkHealth();
+            //colorChange(Color.red);
+            //Invoke("colorChange", .1);
+        }
+    }
+    //private void colorChange(Color c)
+    //{
+    //    GetComponent<MeshRenderer>().material.color = c;
+    //}
+    //private void colorChange()
+    //{
+    //    GetComponent<MeshRenderer>().material.color = Color.white;
+    //}
+    private void checkHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -12,10 +12,11 @@ namespace Pacman
 {
     public class GameController : MonoBehaviour
     {
-        public static GameController Instance { get; private set; }
+        public static GameController Instance;
 
         public int score = 0;
         public int maxCoin = 0;//-5
+        public int maxCat = 1;
 
         public GameObject coin;
         public GameObject pac;
@@ -28,11 +29,21 @@ namespace Pacman
         public DialogueRunner dialogueRunner;
         public string[] node = { "A", "B", "C", "D", "E" };
 
-        private int[] spawns = { -10, -2, 5, 11 };
+        //private int[] spawns = { -10, -2, 5, 11 };
+
+        public int level = 0;
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,22 +57,44 @@ namespace Pacman
 
         void AdvanceLevel()
         {
+            if (level > 0)
+            {
+                SceneManager.LoadScene(level);
+            }
+            if (level < 2)
+            {
+                level++;
+            }
+            else
+            {
+                level = 0;
+            }
+
+            pac = GameObject.FindWithTag("player");
+            pacman = pac.GetComponent<PacmanController>();
+            scoreTMP = GameObject.Find("score").GetComponent<TMP_Text>();
+            bulletTMP = GameObject.Find("ammo").GetComponent<TMP_Text>();
+            dialogueRunner = GameObject.Find("Dialogue System").GetComponent<DialogueRunner>();
+
+            score = 0;
             maxCoin += 5;
             pac.transform.Translate(0, 0, 0);
+            dialogueRunner.StartDialogue(node[Random.Range(0, node.Length)]);
             for (int i = 0; i < maxCoin; i++)
             {
-                Instantiate(coin, new Vector3(spawns[Random.Range(0,spawns.Length)], 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
+                Instantiate(coin, new Vector3(Random.Range(-12, 12), 1.5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
-            Instantiate(enemy, new Vector3(spawns[Random.Range(0, spawns.Length)], 0f, Random.Range(-12, 12)), pacman.transform.rotation);
-            Instantiate(magazine, new Vector3(spawns[Random.Range(0, spawns.Length)], .5f, Random.Range(-12, 12)), pacman.transform.rotation);
+            for (int i = 0; i < maxCat++; i++)
+            {
+                Instantiate(enemy, new Vector3(Random.Range(-12, 12), 0f, Random.Range(-12, 12)), pacman.transform.rotation);
+                Instantiate(magazine, new Vector3(Random.Range(-12, 12), .5f, Random.Range(-12, 12)), pacman.transform.rotation);
+            }
         }
 
         public void Update()
         {
             if (score >= maxCoin)
             {
-                dialogueRunner.StartDialogue(node[Random.Range(0, node.Length)]);
-                score = 0;
                 AdvanceLevel();
             }
         }
