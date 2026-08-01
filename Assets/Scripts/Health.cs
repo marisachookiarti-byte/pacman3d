@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -7,8 +8,12 @@ public class Health : MonoBehaviour
     public AudioSource sfxSource;
     public AudioClip meowSound;
 
+    public Material skin;
+    public Rigidbody rb;
+
     void Awake()
     {
+        //skin = new Material(skin);
         sfxSource.mute = false;
     }
     void Update()
@@ -23,22 +28,27 @@ public class Health : MonoBehaviour
             sfxSource.PlayOneShot(meowSound);
             Destroy(collision.gameObject);
             checkHealth();
-            //colorChange(Color.red);
-            //Invoke("colorChange", .1);
+            colorChange(Color.red);
+            Invoke("colorChange", .1f);
         }
     }
-    //private void colorChange(Color c)
-    //{
-    //    GetComponent<MeshRenderer>().material.color = c;
-    //}
-    //private void colorChange()
-    //{
-    //    GetComponent<MeshRenderer>().material.color = Color.white;
-    //}
+    private void colorChange(Color c)
+    {
+        skin.color = c;
+    }
+    private void colorChange()
+    {
+        skin.color = Color.white;
+    }
     private void checkHealth()
     {
         if (health <= 0)
         {
+            colorChange(Color.blueViolet);
+            while (transform.position.y<5) {
+                Console.Write("floating");
+                transform.position += transform.up*Time.deltaTime;
+            }
             Destroy(gameObject);
         }
     }

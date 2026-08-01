@@ -1,29 +1,24 @@
-using System;
+using Pacman;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.AI;
 
 public class freeCoin : MonoBehaviour
 {
-    private Boolean check = false;
-    public GameObject coin;
+    public NavMeshAgent obj;
 
-    public void Start()
+    void Start()
     {
-        Invoke("changeCheck",1);
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == null||check) return;
-
-        if (collision.gameObject.CompareTag("wall"))
+        if (!obj.isOnNavMesh)
         {
-            Instantiate(coin, new Vector3(Random.Range(-12, 12), 1.5f, Random.Range(-12, 12)), gameObject.transform.rotation);
-            Destroy(gameObject);
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+            {
+                obj.Warp(hit.position);
+            }
         }
-        check = true;
+        Invoke("disable", 1);
     }
-    private void changeCheck()
+    private void disable()
     {
-        check = true;
+        obj.enabled = false;
     }
 }

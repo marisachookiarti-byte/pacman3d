@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -25,15 +26,13 @@ namespace Pacman
         public PacmanController pacman;
         [FormerlySerializedAs("textMeshPro")] public TMP_Text scoreTMP;
         public TMP_Text bulletTMP;
-
-        public DialogueRunner dialogueRunner;
-        public string[] node = { "A", "B", "C", "D", "E" };
+        //public string[] node = { "A", "B", "C", "D", "E" };
 
         //private int[] spawns = { -10, -2, 5, 11 };
 
         public string currentLevel;
 
-        [SerializeField] private List<string> levels;
+        [SerializeField] public List<string> levels;
 
         private void Awake()
         {
@@ -56,11 +55,12 @@ namespace Pacman
 
         void AdvanceLevel()
         {
+            Console.Write(currentLevel);
             var currentIndex = levels.FindIndex(l => string.CompareOrdinal(l, currentLevel) == 0);
             int nextLevelIndex = currentIndex + 1;
             if (levels.Count >= nextLevelIndex) nextLevelIndex = 0;
-            
-            var op = SceneManager.LoadSceneAsync(currentLevel);
+            Console.Write(""+nextLevelIndex);
+            var op = SceneManager.LoadSceneAsync(nextLevelIndex);
             op.completed += OnSceneLoaded;
         }
         
@@ -68,6 +68,7 @@ namespace Pacman
         {
             var op = SceneManager.LoadSceneAsync(currentLevel);
             op.completed += OnSceneLoaded;
+
         }
         
         
@@ -76,17 +77,15 @@ namespace Pacman
         {
             currentLevel = SceneManager.GetActiveScene().name;
             
-            Debug.Log($"AdvanceLevel: finding references");
+            //Debug.Log($"AdvanceLevel: finding references");
             pac = GameObject.FindWithTag("player");
             pacman = pac.GetComponent<PacmanController>();
             scoreTMP = GameObject.Find("score").GetComponent<TMP_Text>();
             bulletTMP = GameObject.Find("ammo").GetComponent<TMP_Text>();
-            dialogueRunner = GameObject.Find("Dialogue System").GetComponent<DialogueRunner>();
 
             score = 0;
-            maxCoin += 5;
+            maxCoin = 5;
             pac.transform.Translate(0, 0, 0);
-            dialogueRunner.StartDialogue(node[Random.Range(0, node.Length)]);
             
             for (int i = 0; i < maxCoin; i++)
             {
@@ -99,7 +98,6 @@ namespace Pacman
             }
             
             // Registering events
-            dialogueRunner.StartDialogue("Start");
             pacman.eatCoinEvent.AddListener(OnPacmanEatCoin);
             pacman.hitEvent.AddListener(OnEnemyHit);
         }
@@ -113,6 +111,7 @@ namespace Pacman
             
             if (score >= maxCoin)
             {
+                Console.Write("check1");
                 AdvanceLevel();
             }
         }
