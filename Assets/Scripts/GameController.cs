@@ -55,12 +55,18 @@ namespace Pacman
 
         void AdvanceLevel()
         {
-            Console.Write(currentLevel);
-            var currentIndex = levels.FindIndex(l => string.CompareOrdinal(l, currentLevel) == 0);
+            Debug.Log(currentLevel);
+            var currentIndex = levels.FindIndex(l =>
+            {
+                //Debug.Log($"[AdvanceLevel] Searching levels index result={string.CompareOrdinal(l, currentLevel) == 0} l={l} currentLevel={currentLevel}");
+                return string.CompareOrdinal(l, currentLevel) == 0;
+            });
+            
             int nextLevelIndex = currentIndex + 1;
-            if (levels.Count >= nextLevelIndex) nextLevelIndex = 0;
-            Console.Write(""+nextLevelIndex);
-            var op = SceneManager.LoadSceneAsync(nextLevelIndex);
+            //Debug.Log($"[AdvanceLevel] currentIndex = {currentIndex} nextLevelIndex = {nextLevelIndex}");
+            //Debug.Log($"[AdvanceLevel] levels.Count = {levels.Count} levels.Count >= nextLevelIndex = {levels.Count >= nextLevelIndex}");
+            if (levels.Count <= nextLevelIndex) nextLevelIndex = 0;
+            var op = SceneManager.LoadSceneAsync(levels[nextLevelIndex]);
             op.completed += OnSceneLoaded;
         }
         
