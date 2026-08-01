@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8157766741637439931}
   - component: {fileID: 1512229399238426528}
   - component: {fileID: 2367087098700840693}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,15 @@ MonoBehaviour:
   eatCoinEvent:
     m_PersistentCalls:
       m_Calls: []
+  hitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   walk: {fileID: 8157766741637439931}
+  Shot: {fileID: 0}
+  cam: {fileID: 0}
+  bulletNum: {fileID: 0}
+  ammo: 100
+  anim: {fileID: 0}
 --- !u!114 &8157766741637439931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,9 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3119e04350d55449b01854d7af7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  movementEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  speed: 5
 --- !u!195 &1512229399238426528
 NavMeshAgent:
   m_ObjectHideFlags: 0
