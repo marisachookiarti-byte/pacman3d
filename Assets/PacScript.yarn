@@ -1,4 +1,4 @@
-﻿title: Start
+﻿title: lvl1Dialogue
 ---
 Pacman: Hi! I really don't like King Louis XIV.
 -> Me too!
@@ -6,23 +6,23 @@ Pacman: Hi! I really don't like King Louis XIV.
 -> That's mean.
 	Pacman: You suck. :(.
 ===
-title: A
+title: lvl2Dialogue
 ---
 Pacman: Rejoice! The heathen's numbers falter!
 ===
-title: B
+title: lvl3Dialogue
 ---
 Pacman: There's more???
 ===
-title: C
+title: lvl4Dialogue
 ---
 Pacman: This guy tastes funny.
 ===
-title: D
+title: lvl5Dialgoue
 ---
 Pacman: Fun fact: King Louis XIV died in 1715.
 ===
-title: E
+title: lvl6Dialgoue
 ---
 Pacman: The French Revolution was so valid.
 ===

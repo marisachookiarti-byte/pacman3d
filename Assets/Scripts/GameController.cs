@@ -21,7 +21,7 @@ namespace Pacman
 
         public GameObject coin;
         public GameObject pac;
-        public GameObject enemy;
+        public GameObject[] enemy;
         public GameObject magazine;
         public PacmanController pacman;
         [FormerlySerializedAs("textMeshPro")] public TMP_Text scoreTMP;
@@ -55,7 +55,7 @@ namespace Pacman
 
         void AdvanceLevel()
         {
-            Debug.Log(currentLevel);
+            //Debug.Log(currentLevel);
             var currentIndex = levels.FindIndex(l =>
             {
                 //Debug.Log($"[AdvanceLevel] Searching levels index result={string.CompareOrdinal(l, currentLevel) == 0} l={l} currentLevel={currentLevel}");
@@ -99,7 +99,7 @@ namespace Pacman
             }
             for (int i = 0; i < maxCat; i++)
             {
-                Instantiate(enemy, new Vector3(Random.Range(-12, 12), 0f, Random.Range(-12, 12)), pacman.transform.rotation);
+                Instantiate(enemy[Random.Range(0,2)], new Vector3(Random.Range(-12, 12), 0f, Random.Range(-12, 12)), pacman.transform.rotation);
                 Instantiate(magazine, new Vector3(Random.Range(-12, 12), .5f, Random.Range(-12, 12)), pacman.transform.rotation);
             }
             

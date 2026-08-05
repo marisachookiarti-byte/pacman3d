@@ -16,6 +16,8 @@ public class Health : MonoBehaviour
 
     public UnityEvent onDeath;
 
+    private Color originalColor;
+
     void Awake()
     {
         if (skin != null)
@@ -34,6 +36,8 @@ public class Health : MonoBehaviour
                 renderer.sharedMaterials = materials;
             }
         }
+        originalColor = skin.color;
+
         sfxSource.mute = false;
         
         attackCollider.GetComponent<Collider>();
@@ -55,7 +59,7 @@ public class Health : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"OnTriggerEnter object={other.gameObject.name}");
+        //Debug.Log($"OnTriggerEnter object={other.gameObject.name}");
 
         if (!other.CompareTag("bullet"))
             return;
@@ -74,7 +78,7 @@ public class Health : MonoBehaviour
     }
     private void colorChange()
     {
-        skin.color = Color.white;
+        skin.color = originalColor;
     }
     
     private bool checkHealth()

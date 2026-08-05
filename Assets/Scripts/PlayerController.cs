@@ -35,7 +35,6 @@ namespace Pacman
         {
             //Debug.Log($"OnCollisionEnter {collision.gameObject.name}");
             if (collision.gameObject == null) return;
-            
             if (collision.gameObject.CompareTag("coin"))
             {
                 eatCoinEvent.Invoke(collision);
@@ -49,6 +48,14 @@ namespace Pacman
                 ammo += 5;
                 Destroy(collision.gameObject);
                 bulletNum.text = ""+ammo;
+            }
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == null) return;
+            if (other.gameObject.CompareTag("enemy"))
+            {
+                hitEvent.Invoke();
             }
         }
     }
